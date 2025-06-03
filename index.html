@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge Quick Start</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://forge.dev/forge.js"></script>
+  <script>
+    // Initialize Forge
+    const app = document.getElementById('app');
+    const forge = new Forge(app);
+    
+    // Create a text element
+    const text = forge.createText('Hello Forge!');
+    text.position.set(0, 0);
+    text.scale.set(2);
+    
+    // Add the text to the scene
+    forge.scene.add(text);
+  </script>
+</body>
+</html>
+
