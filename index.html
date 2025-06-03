@@ -4,23 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Forge Quick Start</title>
+  <style> body {margin: 0;} </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.174.0/three.module.js",
+        "@forge-gfx/forge": "https://forge.dev/releases/forge/0.1.0/forge.module.js"
+      }
+    }
+  </script>
 </head>
 <body>
-  <div id="app"></div>
-  <script src="https://forge.dev/forge.js"></script>
-  <script>
-    // Initialize Forge
-    const app = document.getElementById('app');
-    const forge = new Forge(app);
-    
-    // Create a text element
-    const text = forge.createText('Hello Forge!');
-    text.position.set(0, 0);
-    text.scale.set(2);
-    
-    // Add the text to the scene
-    forge.scene.add(text);
+  <script type="module">
+    import * as THREE from "three";
+    import { SplatMesh } from "@forge-gfx/forge";
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement)
+
+    const splatURL = "https://forge.dev/assets/splats/butterfly.spz";
+    const butterfly = new SplatMesh({ url: splatURL });
+    butterfly.quaternion.set(1, 0, 0, 0);
+    butterfly.position.set(0, 0, -3);
+    scene.add(butterfly);
+
+    renderer.setAnimationLoop(function animate(time) {
+      renderer.render(scene, camera);
+      butterfly.rotation.y += 0.01;
+    });
   </script>
 </body>
 </html>
-
